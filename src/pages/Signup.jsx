@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const Signup = () => {
+const Signup = ({ setVisibleSignup, token, setToken }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +34,8 @@ const Signup = () => {
         success: true,
       });
 
+      setToken(response.data.token);
+
       setUsername("");
       setEmail("");
       setPassword("");
@@ -50,86 +52,114 @@ const Signup = () => {
       console.log(error.message, "\n", error.response);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (token) setVisibleSignup(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [token, setVisibleSignup]);
+
   return (
-    <div className="container signup-container">
-      <h1>S'inscrire</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          name="username"
-          id="username"
-          placeholder="Nom d'utilisateur"
-          onChange={(event) => {
-            setUsername(event.target.value);
-            setResponseMessage({
-              ...responseMessage,
-              message: "",
-              success: false,
-            });
+    <div
+      className="signup-container"
+      onClick={() => {
+        setVisibleSignup(false);
+      }}
+    >
+      <div
+        className="modal-container"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
+        <button
+          onClick={() => {
+            setVisibleSignup(false);
           }}
-          required
-        />
-        <input
-          type="text"
-          value={email}
-          name="email"
-          id="email"
-          placeholder="Email"
-          onChange={(event) => {
-            setEmail(event.target.value);
-            setResponseMessage({
-              ...responseMessage,
-              message: "",
-              success: false,
-            });
-          }}
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          name="password"
-          id="password"
-          placeholder="Mot de passe"
-          onChange={(event) => {
-            setPassword(event.target.value);
-            setResponseMessage({
-              ...responseMessage,
-              message: "",
-              success: false,
-            });
-          }}
-          required
-        />
-        <div className="check">
-          <div>
-            <input
-              type="checkbox"
-              name="checkbox"
-              onChange={(event) => {
-                setNewsletter(!newsletter);
-              }}
-            />
-            <h2>S'inscrire à notre newsletter</h2>
+          className="modal-button"
+        >
+          X
+        </button>
+        <h1>S'inscrire</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={username}
+            name="username"
+            id="username"
+            placeholder="Nom d'utilisateur"
+            onChange={(event) => {
+              setUsername(event.target.value);
+              setResponseMessage({
+                ...responseMessage,
+                message: "",
+                success: false,
+              });
+            }}
+            required
+          />
+          <input
+            type="text"
+            value={email}
+            name="email"
+            id="email"
+            placeholder="Email"
+            onChange={(event) => {
+              setEmail(event.target.value);
+              setResponseMessage({
+                ...responseMessage,
+                message: "",
+                success: false,
+              });
+            }}
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            name="password"
+            id="password"
+            placeholder="Mot de passe"
+            onChange={(event) => {
+              setPassword(event.target.value);
+              setResponseMessage({
+                ...responseMessage,
+                message: "",
+                success: false,
+              });
+            }}
+            required
+          />
+          <div className="check">
+            <div>
+              <input
+                type="checkbox"
+                name="checkbox"
+                onChange={() => {
+                  setNewsletter(!newsletter);
+                }}
+              />
+              <h2>S'inscrire à notre newsletter</h2>
+            </div>
+            <p>
+              En m'inscrivant je confirme avoir lu et accepté les Termes &
+              Conditions et Politique de Confidentialité de Vinted. Je confirme
+              avoir au moins 18 ans.
+            </p>
           </div>
-          <p>
-            En m'inscrivant je confirme avoir lu et accepté les Termes &
-            Conditions et Politique de Confidentialité de Vinted. Je confirme
-            avoir au moins 18 ans.
-          </p>
-        </div>
-        <button type="submit">S'inscrire</button>
-        <p>Tu as déjà un compte ? connecte-toi !</p>
-      </form>
-      {responseMessage.message && (
-        <textarea
-          name="message"
-          id="message"
-          defaultValue={responseMessage.message}
-          style={{ color: responseMessage.success ? "green" : "red" }}
-        ></textarea>
-      )}
+          <button type="submit">S'inscrire</button>
+          <p>Tu as déjà un compte ? connecte-toi !</p>
+        </form>
+        {responseMessage.message && (
+          <textarea
+            name="message"
+            id="message"
+            defaultValue={responseMessage.message}
+            style={{ color: responseMessage.success ? "green" : "red" }}
+          ></textarea>
+        )}
+      </div>
     </div>
   );
 };

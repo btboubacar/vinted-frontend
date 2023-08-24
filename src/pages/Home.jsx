@@ -10,9 +10,11 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
+        // "http://localhost:3000/offers"
         "https://lereacteur-vinted-api.herokuapp.com/offers"
       );
 
+      console.log(response.data);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -38,7 +40,8 @@ const Home = () => {
           <p>Commencez à faire du tri dans vos placards ?</p>
           <button>Commencer à vendre</button>
         </div>
-        <img src={data.offers[0].product_pictures[0].secure_url} alt="" />
+        <img src={data.offers[0].product_image.secure_url} alt="" />
+        {/* <img src={data.offers[0].product_pictures[0].secure_url} alt="" /> */}
         {/* <img
           src="https://www.repstatic.it/content/nazionale/img/2021/01/22/062940409-8153b63b-d426-4cca-b735-17e115109660.jpg?webp"
           alt=""
@@ -57,7 +60,7 @@ const Home = () => {
                 >
                   {offer.owner.account.username}
                 </p>
-                <Link to={`/offer/${offer._id}`}>
+                <Link to={`/offers/${offer._id}`}>
                   <div
                   // onClick={() => {
                   //   offerDetailsRoute(`/offer/${offer._id}`);

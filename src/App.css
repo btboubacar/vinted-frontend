@@ -306,21 +306,36 @@ button {
 /* ------------------------ */
 /* --------SIGNUP---------- */
 /* ------------------------ */
-
 .signup-container {
   margin: 0 auto;
-  width: 275px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 140px;
+  left: 0;
 }
 
-.signup-container h1 {
-  font-size: 24px;
-  color: black;
+.modal-container {
+  margin: 30px auto;
+  width: 300px;
+  border: solid 0.5px rgb(100, 80, 80);
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-container h1 {
+  font-size: 28px;
+  /* color: black; */
+  color: white;
   line-height: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
 }
 
-.signup-container input:not([name~="checkbox"]) {
+.modal-container input:not([name~="checkbox"]) {
   width: 100%;
   font-size: 14px;
   color: black;
@@ -329,18 +344,19 @@ button {
   border-radius: 5px;
   border-bottom: solid 1px #fcced3;
   margin-bottom: 20px;
+  padding-left: 10px;
 }
 
-.signup-container input:not([name~="checkbox"])::placeholder {
+.modal-container input:not([name~="checkbox"])::placeholder {
   font-size: 16px;
   color: lightgray;
 }
 
-.signup-container input:focus {
+.modal-container input:focus {
   outline: none;
 }
 
-.signup-container input[name*="checkbox"] {
+.modal-container input[name*="checkbox"] {
   border: inherit;
   font: inherit;
   color: currentColor;
@@ -355,30 +371,33 @@ button {
   user-select: none;
 }
 
-.signup-container .check {
+.modal-container .check {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.signup-container .check > div {
+.modal-container .check > div {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
-.signup-container .check h2 {
-  font-size: 18px;
-  color: gray;
+/* ----- newsletter */
+.modal-container .check h2 {
+  font-size: 17px;
+  /* color: gray; */
+  color: lightgray;
 }
 
-.signup-container .check > p {
+.modal-container .check > p {
   font-size: 14px;
-  color: grey;
+  color: lightgray;
+  /* color: grey; */
   text-align: justify;
 }
 
-.signup-container button {
+.modal-container button {
   margin-top: 40px;
   margin-bottom: 20px;
   width: 100%;
@@ -389,12 +408,12 @@ button {
   padding: 10px;
 }
 
-.signup-container button + p {
+.modal-container button + p {
   font-size: 14px;
   text-align: center;
 }
 
-.signup-container textarea {
+.modal-container textarea {
   margin-top: 15px;
   width: 100%;
   border-color: white;
@@ -405,4 +424,26 @@ button {
   text-align: justify;
   padding-left: 10px;
   font-size: 14px;
+}
+
+.modal-container textarea:focus {
+  outline: none;
+}
+
+.modal-container .modal-button {
+  width: 30px;
+  height: 30px;
+  /* position: absolute; */
+  background-color: lightblue;
+  text-align: center;
+  font-size: 18px;
+  line-height: 18px;
+  align-self: flex-end;
+  margin-top: 0;
+  padding: 0;
+}
+
+.modal-container .modal-button:hover {
+  cursor: pointer;
+  background-color: tomato;
 }

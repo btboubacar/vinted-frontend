@@ -5,8 +5,20 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
+import { useEffect } from "react";
 
-const Header = ({ token, setToken }) => {
+const Header = ({
+  token,
+  setToken,
+  visibleSignup,
+  setVisibleSignup,
+  visibleLogin,
+  setVisibleLogin,
+}) => {
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
+
   return (
     <header>
       <div className="container header-container">
@@ -41,12 +53,25 @@ const Header = ({ token, setToken }) => {
             </div>
           ) : (
             <div>
-              <Link to="/signup">
-                <button>s'inscrire</button>
-              </Link>
-              <Link to="/login">
-                <button>Se connecter</button>
-              </Link>
+              {/* <Link to="/signup"> */}
+              <button
+                onClick={() => {
+                  setVisibleSignup(!visibleSignup);
+                }}
+              >
+                s'inscrire
+              </button>
+              {/* </Link> */}
+
+              {/* <Link to="/login"> */}
+              <button
+                onClick={() => {
+                  setVisibleLogin(!visibleLogin);
+                }}
+              >
+                Se connecter
+              </button>
+              {/* </Link> */}
             </div>
           )}
 
