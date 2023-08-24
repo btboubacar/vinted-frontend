@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -45,7 +45,7 @@ const Home = () => {
         /> */}
       </div>
       <main>
-        <div className="main-container">
+        <div className="main-container container">
           {data.offers.map((offer, index) => {
             return (
               <div key={offer._id} className="card-offer">

@@ -1,8 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import logo from "../assets/img/logo.jpg";
+import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
+import Signup from "../pages/Signup";
+import Login from "../pages/Login";
 
-const Header = () => {
+const Header = ({ token, setToken }) => {
   return (
     <header>
       <div className="container header-container">
@@ -19,10 +23,33 @@ const Header = () => {
           />
         </div>
         <nav className="nav-buttons">
-          <div>
-            <button>s'inscrire</button>
-            <button>Se connecter</button>
-          </div>
+          {token ? (
+            <div>
+              <button
+                style={{
+                  backgroundColor: "red",
+                  borderColor: "red",
+                  color: "white",
+                }}
+                onClick={() => {
+                  Cookies.remove("token");
+                  setToken("");
+                }}
+              >
+                Se deconnecter
+              </button>
+            </div>
+          ) : (
+            <div>
+              <Link to="/signup">
+                <button>s'inscrire</button>
+              </Link>
+              <Link to="/login">
+                <button>Se connecter</button>
+              </Link>
+            </div>
+          )}
+
           <button>Vends tes articles</button>
         </nav>
       </div>
