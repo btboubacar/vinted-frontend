@@ -16,8 +16,12 @@ const Header = ({
   setVisibleLogin,
 }) => {
   useEffect(() => {
-    setToken(Cookies.get("token"));
-  }, [token]);
+    if (token) setToken(Cookies.get("token"));
+
+    //
+    if (visibleLogin || visibleSignup) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "scroll";
+  }, [token, visibleLogin, visibleSignup]);
 
   return (
     <header>

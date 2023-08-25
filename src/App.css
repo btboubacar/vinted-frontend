@@ -319,17 +319,20 @@ button {
 .modal-container {
   margin: 30px auto;
   width: 300px;
+  /* max-height: 70vh; */
   border: solid 0.5px rgb(100, 80, 80);
   padding: 10px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  background-color: lightgray;
 }
 
 .modal-container h1 {
   font-size: 28px;
   /* color: black; */
-  color: white;
+  /* color: white; */
+  color: black;
   line-height: 20px;
   margin-bottom: 25px;
   text-align: center;
@@ -386,20 +389,20 @@ button {
 /* ----- newsletter */
 .modal-container .check h2 {
   font-size: 17px;
-  /* color: gray; */
-  color: lightgray;
+  /* color: lightgray; */
+  color: black;
 }
 
 .modal-container .check > p {
   font-size: 14px;
-  color: lightgray;
-  /* color: grey; */
+  /* color: lightgray; */
+  color: rgba(0, 0, 0, 0.6);
   text-align: justify;
 }
 
 .modal-container button {
   margin-top: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 100%;
   height: 45px;
   border-radius: 8px;
@@ -408,9 +411,21 @@ button {
   padding: 10px;
 }
 
+.modal-container button:hover {
+  cursor: pointer;
+  background-color: #23deeb8f;
+}
+
 .modal-container button + p {
   font-size: 14px;
   text-align: center;
+  margin-bottom: 10px;
+  color: #2c99ba;
+}
+
+.modal-container button + p:hover {
+  cursor: pointer;
+  color: rgb(0, 94, 255);
 }
 
 .modal-container textarea {
@@ -419,7 +434,7 @@ button {
   border-color: white;
   border-radius: 5px;
   resize: none;
-  height: 40px;
+  height: 80px;
   /* line-height: 40px; */
   text-align: justify;
   padding-left: 10px;

@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+// import { Link } from "react-router-dom";
 
-const Signup = ({ setVisibleSignup, token, setToken }) => {
+const Signup = ({
+  visibleLogin,
+  setVisibleLogin,
+  setVisibleSignup,
+  token,
+  setToken,
+}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +24,8 @@ const Signup = ({ setVisibleSignup, token, setToken }) => {
     console.log(username, email, password, newsletter);
     try {
       const response = await axios.post(
-        // "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-        "http://localhost:3000/user/signup",
+        "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+        // "http://localhost:3000/user/signup",
         {
           username: username,
           email: email,
@@ -41,11 +48,14 @@ const Signup = ({ setVisibleSignup, token, setToken }) => {
       setPassword("");
       setNewsletter(false);
     } catch (error) {
-      if (error.response.status === 409) {
+      if (
+        error.response.status === 409 ||
+        error.response.data.message.includes("already")
+      ) {
         console.log("Email already exists !");
         setResponseMessage({
           ...responseMessage,
-          message: "Error : Email already exists !",
+          message: "Email est déja utilisé: veuillez en instruire un autre ",
           success: false,
         });
       }
@@ -149,7 +159,15 @@ const Signup = ({ setVisibleSignup, token, setToken }) => {
             </p>
           </div>
           <button type="submit">S'inscrire</button>
-          <p>Tu as déjà un compte ? connecte-toi !</p>
+
+          <p
+            onClick={() => {
+              setVisibleLogin(!visibleLogin);
+              setVisibleSignup(false);
+            }}
+          >
+            Tu as déjà un compte ? connecte-toi !
+          </p>
         </form>
         {responseMessage.message && (
           <textarea

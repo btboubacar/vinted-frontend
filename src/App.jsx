@@ -21,6 +21,7 @@ function App() {
   const [token, setToken] = useState("");
   const [visibleSignup, setVisibleSignup] = useState(false);
   const [visibleLogin, setVisibleLogin] = useState(false);
+
   return (
     <Router>
       <Header
@@ -43,6 +44,8 @@ function App() {
           token={token}
           setToken={setToken}
           setVisibleSignup={setVisibleSignup}
+          visibleLogin={visibleLogin}
+          setVisibleLogin={setVisibleLogin}
         />
       )}
       {visibleLogin && (
@@ -50,6 +53,8 @@ function App() {
           token={token}
           setToken={setToken}
           setVisibleLogin={setVisibleLogin}
+          visibleSignup={visibleSignup}
+          setVisibleSignup={setVisibleSignup}
         />
       )}
       {visibleLogin || visibleSignup ? (

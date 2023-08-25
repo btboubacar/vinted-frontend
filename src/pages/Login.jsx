@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const Login = ({ token, setToken, setVisibleLogin }) => {
+const Login = ({
+  token,
+  setToken,
+  setVisibleLogin,
+  visibleSignup,
+  setVisibleSignup,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [responseMessage, setResponseMessage] = useState({
@@ -15,8 +21,8 @@ const Login = ({ token, setToken, setVisibleLogin }) => {
     console.log(email, password);
     try {
       const response = await axios.post(
-        // "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-        "http://localhost:3000/user/login",
+        "https://lereacteur-vinted-api.herokuapp.com/user/login",
+        // "http://localhost:3000/user/login",
         {
           email: email,
           password: password,
@@ -29,11 +35,16 @@ const Login = ({ token, setToken, setVisibleLogin }) => {
       setEmail("");
       setPassword("");
     } catch (error) {
-      if (error.response.status === 400) {
+      if (
+        error.response.status === 400 ||
+        error.response.status === 401 ||
+        error.response.data.message.includes("Unauthorized")
+      ) {
         console.log(error.response.data.message);
         setResponseMessage({
           ...responseMessage,
-          message: error.response.data.message,
+          message:
+            "Erreur de login : mauvaise combinaison d'email et mot de passe",
           success: false,
         });
       }
@@ -101,7 +112,14 @@ const Login = ({ token, setToken, setVisibleLogin }) => {
             required
           />
           <button type="submit">Se connecter</button>
-          <p>Pas encore de compte ? Inscris toi !</p>
+          <p
+            onClick={() => {
+              setVisibleSignup(!visibleSignup);
+              setVisibleLogin(false);
+            }}
+          >
+            Pas encore de compte ? Inscris toi !
+          </p>
         </form>
         {responseMessage.message && (
           <textarea
