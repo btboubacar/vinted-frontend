@@ -17,8 +17,8 @@ body {
 /* ----------------- */
 .header-container {
   max-width: 1280px;
-  margin: 10px auto;
-  height: 120px;
+  margin: 0 auto;
+  /* height: 70px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,9 +56,13 @@ button {
 /* ------- SEARCH PART ----- */
 .search-bar {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* border: solid 1px red; */
 }
 
-.search-bar input {
+.search-bar #search {
   width: 632px;
   height: 40px;
   border-radius: 5px;
@@ -80,6 +84,42 @@ button {
   top: 10px;
   left: 8px;
   color: grey;
+}
+
+/* -------- sorting bloc */
+.search-bar .sort-bloc {
+  /* border: solid blue 1px; */
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sort-direction {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 5px;
+}
+
+.sort-direction input {
+  width: 20px;
+}
+
+.search-bar .sort-bloc .sort-price {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  /* border: red solid 1px; */
+}
+
+.search-bar .sort-bloc .sort-price input {
+  width: 60px;
+  height: 30px;
+  border: solid 1px black;
+  background-color: #f5f6f7;
+  border-radius: 5px;
 }
 
 /* ---------- NAV PART */
@@ -250,16 +290,35 @@ button {
   border-bottom: solid grey 1px;
 }
 
+/* --- price */
 .offer-details-product > p:nth-child(1) {
   font-size: 25px;
   padding-bottom: 20px;
   color: gray;
 }
 
+/* --- other details */
 .offer-details-product > p:not(:nth-child(1)) {
   font-size: 12px;
   padding-bottom: 5px;
   color: lightgray;
+}
+
+.offer-text {
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 20px;
+  /* border: solid green 1px; */
+}
+
+.offer-text > span:first-child {
+  margin-right: auto;
+  color: blue;
+}
+.offer-text > span:last-child {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .offer-details > div:nth-child(2) {

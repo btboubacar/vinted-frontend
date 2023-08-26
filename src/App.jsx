@@ -22,6 +22,13 @@ function App() {
   const [visibleSignup, setVisibleSignup] = useState(false);
   const [visibleLogin, setVisibleLogin] = useState(false);
 
+  // sort
+  const [values, setValues] = useState([5, 500]);
+  // const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+  const [title, setTitle] = useState("");
+  // const [sortDirection, setSortDirection] = useState(false);
+  const [state, setState] = useState(false);
+
   return (
     <Router>
       <Header
@@ -31,10 +38,35 @@ function App() {
         setVisibleSignup={setVisibleSignup}
         visibleLogin={visibleLogin}
         setVisibleLogin={setVisibleLogin}
+        values={values}
+        setValues={setValues}
+        title={title}
+        setTitle={setTitle}
+        state={state}
+        setState={setState}
+        // sortDirection={sortDirection}
+        // setSortDirection={setSortDirection}
       />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              visibleLogin={visibleLogin}
+              setVisibleLogin={setVisibleLogin}
+              values={values}
+              setValues={setValues}
+              title={title}
+              setTitle={setTitle}
+              state={state}
+              setState={setState}
+
+              // sortDirection={sortDirection}
+              // setSortDirection={setSortDirection}
+            />
+          }
+        />
         <Route path="/offers/:id" element={<Offer />} />
         {/* <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login setToken={setToken} />} /> */}

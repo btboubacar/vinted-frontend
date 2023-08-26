@@ -21,7 +21,7 @@ const Offer = () => {
         // const response = await axios.get(
         //   "https://lereacteur-vinted-api.herokuapp.com/offers"
         // );
-
+        console.log(response.data);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -50,8 +50,8 @@ const Offer = () => {
                 const objKey = Object.keys(detail);
 
                 return (
-                  <p key={objKey}>
-                    {objKey} : {detail[objKey[0]]}
+                  <p className="offer-text" key={objKey}>
+                    <span>{objKey}</span> <span>{detail[objKey[0]]}</span>{" "}
                   </p>
                 );
               })}
@@ -65,7 +65,12 @@ const Offer = () => {
               })} */}
               <p>{data.product_description}</p>
               <div>
-                <img src={data.owner.account.avatar.secure_url} alt="avatar" />
+                {data.owner.account.avatar && (
+                  <img
+                    src={data.owner.account.avatar.secure_url}
+                    alt="avatar"
+                  />
+                )}
                 <p>{data.owner.account.username}</p>
               </div>
             </div>
