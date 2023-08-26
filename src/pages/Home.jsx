@@ -1,19 +1,17 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+// api client
+import apiClient from "../api/client";
+const endpoint = "/offers";
 
 //
 const Home = ({
   values,
-  setValues,
   title,
-  setTitle,
   visibleLogin,
   setVisibleLogin,
-  state,
-  setState,
-  // sortDirection,
-  // setSortDirection,
+  sortDirection,
 }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +28,7 @@ const Home = ({
     else queryString += `&priceMax=${values[1]}`;
   }
 
-  if (!state) {
+  if (!sortDirection) {
     if (!queryString) queryString += `?sort=price-asc`;
     else queryString += `&sort=price-asc`;
   } else {
@@ -38,22 +36,9 @@ const Home = ({
     else queryString += `&sort=price-desc`;
   }
 
-  console.log(queryString);
-
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        // `http://localhost:3000/offer${queryString}`
-        // "https://lereacteur-vinted-api.herokuapp.com/offers"
-        // `https://lereacteur-vinted-api.herokuapp.com/offers?${
-        //   title && `title=${title}`
-        // }${values.min && `&priceMin=${values.min}`}${
-        //   values.max && `&priceMax=${values.max}`
-        // }`
-        `https://lereacteur-vinted-api.herokuapp.com/offers${queryString}`
-      );
-
-      console.log(response.data);
+      const response = await apiClient.get(`${endpoint}${queryString}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -63,12 +48,7 @@ const Home = ({
 
   useEffect(() => {
     fetchData();
-  }, [title, values, state]);
-
-  // const navigate = useNavigate();
-  // const offerDetailsRoute = (path) => {
-  //   navigate(path);
-  // };
+  }, [title, values, sortDirection]);
 
   return isLoading ? (
     "Loading ..."
@@ -89,19 +69,12 @@ const Home = ({
           src="https://www.repstatic.it/content/nazionale/img/2021/01/22/062940409-8153b63b-d426-4cca-b735-17e115109660.jpg?webp"
           alt=""
         />
-        {/* <img src={data.offers[0].product_image.secure_url} alt="" /> */}
-        {/* <img src={data.offers[0].product_pictures[0].secure_url} alt="" /> */}
-        {/* <img
-          src="https://www.repstatic.it/content/nazionale/img/2021/01/22/062940409-8153b63b-d426-4cca-b735-17e115109660.jpg?webp"
-          alt=""
-        /> */}
       </div>
       <main>
         <div className="main-container container">
           {data.offers.map((offer, index) => {
             return (
               <div key={offer._id} className="card-offer">
-                {/* <p>{offer.product_name}</p> */}
                 <p
                   onClick={() => {
                     alert("Go to user profile !");
@@ -110,11 +83,7 @@ const Home = ({
                   {offer.owner.account.username}
                 </p>
                 <Link to={`/offers/${offer._id}`}>
-                  <div
-                  // onClick={() => {
-                  //   offerDetailsRoute(`/offer/${offer._id}`);
-                  // }}
-                  >
+                  <div>
                     <img
                       src={offer.product_image.secure_url}
                       alt={offer.product_name}

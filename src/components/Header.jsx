@@ -1,19 +1,17 @@
+import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+//
 import logo from "../assets/img/logo.jpg";
-import Cookies from "js-cookie";
-import { Link, useLocation } from "react-router-dom";
-import Signup from "../pages/Signup";
-import Login from "../pages/Login";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useDebouncedCallback } from "use-debounce";
+
+// Adapted from external components
 import PriceSlider from "./PriceSlider";
 import SliderSwitch from "./SliderSwitch";
 
 const Header = ({
   token,
-  setToken,
+  handleToken,
   visibleSignup,
   setVisibleSignup,
   visibleLogin,
@@ -22,35 +20,27 @@ const Header = ({
   setValues,
   title,
   setTitle,
-  state,
-  setState,
-  // sortDirection,
-  // setSortDirection,
+  sortDirection,
+  setSortDirection,
 }) => {
   const location = useLocation();
 
-  console.log(location);
-
   useEffect(() => {
-    if (token) setToken(Cookies.get("token"));
-
-    //
     if (visibleLogin || visibleSignup) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "scroll";
-  }, [token, visibleLogin, visibleSignup, title]);
-
-  // const debounced = useDebouncedCallback((value) => {
-  //   setPriceRange({ ...priceRange, max: value }, 2000);
-  // });
-  // const debouncedMin = useDebouncedCallback((value) => {
-  //   setPriceRange({ ...priceRange, min: value }, 2000);
-  // });
+  }, [visibleLogin, visibleSignup, title]);
 
   return (
     <header>
       <div className="container header-container">
         <div className="img-logo">
-          <Link to={"/"}>
+          <Link
+            to={"/"}
+            onClick={() => {
+              setVisibleSignup(false);
+              setVisibleLogin(false);
+            }}
+          >
             <img src={logo} alt="Logo vinted" />
           </Link>
         </div>
@@ -69,39 +59,14 @@ const Header = ({
             <div className="sort-bloc">
               <div className="sort-direction">
                 <span>Trier par prix: </span>{" "}
-                <SliderSwitch state={state} setState={setState} />
-                {/* <input
-                type="checkbox"
-                checked={sortDirection}
-                onChange={() => {
-                  setSortDirection(!sortDirection);
-                }}
-              /> */}
+                <SliderSwitch
+                  sortDirection={sortDirection}
+                  setSortDirection={setSortDirection}
+                />
               </div>
               <div className="sort-price">
                 <span>Prix entre : </span>{" "}
                 <PriceSlider values={values} setValues={setValues} />
-                {/* <form>
-                <input
-                  type="text"
-                  value={priceRange.min}
-                  name="minPrice"
-                  onChange={
-                    (event) => debouncedMin(event.target.value)
-                    // console.log(event);
-                    // setPriceRange({ ...priceRange, min: event.target.value });
-                  }
-                />{" "}
-                <input
-                  type="text"
-                  value={priceRange.max}
-                  name="maxPrice"
-                  onChange={
-                    (event) => debounced(event.target.value)
-                    // setPriceRange({ ...priceRange, max: event.target.value });
-                  }
-                />
-              </form> */}
               </div>
             </div>
           )}
@@ -116,8 +81,7 @@ const Header = ({
                   color: "white",
                 }}
                 onClick={() => {
-                  Cookies.remove("token");
-                  setToken("");
+                  handleToken(null);
                 }}
               >
                 Se deconnecter
@@ -125,25 +89,23 @@ const Header = ({
             </div>
           ) : (
             <div>
-              {/* <Link to="/signup"> */}
               <button
                 onClick={() => {
                   setVisibleSignup(!visibleSignup);
+                  setVisibleLogin(false);
                 }}
               >
                 s'inscrire
               </button>
-              {/* </Link> */}
 
-              {/* <Link to="/login"> */}
               <button
                 onClick={() => {
                   setVisibleLogin(!visibleLogin);
+                  setVisibleSignup(false);
                 }}
               >
                 Se connecter
               </button>
-              {/* </Link> */}
             </div>
           )}
 

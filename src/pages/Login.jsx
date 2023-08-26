@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
+
+// api client
+import apiClient from "../api/client";
+const endpoint = "/user/login";
 
 const Login = ({
   token,
-  setToken,
+  handleToken,
   setVisibleLogin,
   visibleSignup,
   setVisibleSignup,
@@ -18,20 +20,15 @@ const Login = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     console.log(email, password);
     try {
-      const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/login",
-        // "http://localhost:3000/user/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
-      console.log(response.data);
-      Cookies.set("token", response.data.token, { expires: 7 });
+      const response = await apiClient.post(endpoint, {
+        email: email,
+        password: password,
+      });
+      handleToken(response.data.token);
 
-      setToken(response.data.token);
       setEmail("");
       setPassword("");
     } catch (error) {
@@ -40,7 +37,6 @@ const Login = ({
         error.response.status === 401 ||
         error.response.data.message.includes("Unauthorized")
       ) {
-        console.log(error.response.data.message);
         setResponseMessage({
           ...responseMessage,
           message:

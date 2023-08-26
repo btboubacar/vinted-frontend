@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./App.css";
 
 // Pages
@@ -18,22 +19,31 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 library.add(faMagnifyingGlass);
 
 function App() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
   const [visibleSignup, setVisibleSignup] = useState(false);
   const [visibleLogin, setVisibleLogin] = useState(false);
 
   // sort
   const [values, setValues] = useState([5, 500]);
-  // const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [title, setTitle] = useState("");
-  // const [sortDirection, setSortDirection] = useState(false);
-  const [state, setState] = useState(false);
+  const [sortDirection, setSortDirection] = useState(false);
+
+  // handle token
+  const handleToken = (token) => {
+    if (token) {
+      Cookies.set("token", token, { expires: 15 });
+      setToken(token);
+    } else {
+      Cookies.remove("token");
+      setToken(null);
+    }
+  };
 
   return (
     <Router>
       <Header
         token={token}
-        setToken={setToken}
+        handleToken={handleToken}
         visibleSignup={visibleSignup}
         setVisibleSignup={setVisibleSignup}
         visibleLogin={visibleLogin}
@@ -42,10 +52,8 @@ function App() {
         setValues={setValues}
         title={title}
         setTitle={setTitle}
-        state={state}
-        setState={setState}
-        // sortDirection={sortDirection}
-        // setSortDirection={setSortDirection}
+        sortDirection={sortDirection}
+        setSortDirection={setSortDirection}
       />
 
       <Routes>
@@ -59,22 +67,17 @@ function App() {
               setValues={setValues}
               title={title}
               setTitle={setTitle}
-              state={state}
-              setState={setState}
-
-              // sortDirection={sortDirection}
-              // setSortDirection={setSortDirection}
+              sortDirection={sortDirection}
+              setSortDirection={setSortDirection}
             />
           }
         />
         <Route path="/offers/:id" element={<Offer />} />
-        {/* <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login setToken={setToken} />} /> */}
       </Routes>
       {visibleSignup && (
         <Signup
           token={token}
-          setToken={setToken}
+          handleToken={handleToken}
           setVisibleSignup={setVisibleSignup}
           visibleLogin={visibleLogin}
           setVisibleLogin={setVisibleLogin}
@@ -83,7 +86,7 @@ function App() {
       {visibleLogin && (
         <Login
           token={token}
-          setToken={setToken}
+          handleToken={handleToken}
           setVisibleLogin={setVisibleLogin}
           visibleSignup={visibleSignup}
           setVisibleSignup={setVisibleSignup}

@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import Switch from "react-switch";
 
 class SliderSwitch extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // this.state = { checked: false };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(checked, event) {
     // this.setState({ checked });
-    this.props.setState(!this.props.state);
+    this.props.setSortDirection(!this.props.sortDirection);
   }
 
   render() {
@@ -19,7 +19,7 @@ class SliderSwitch extends Component {
         {/* <span>Switch with default style</span> */}
         <Switch
           onChange={this.handleChange}
-          checked={this.props.state}
+          checked={this.props.sortDirection}
           offColor="#2CB1BA"
           onColor="#2CB1BA"
           handleDiameter={25}

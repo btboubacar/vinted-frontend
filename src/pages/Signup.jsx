@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
-// import { Link } from "react-router-dom";
+
+// api client
+import apiClient from "../api/client";
+const endpoint = "/user/signup";
 
 const Signup = ({
   visibleLogin,
   setVisibleLogin,
   setVisibleSignup,
   token,
-  setToken,
+  handleToken,
 }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -23,25 +24,18 @@ const Signup = ({
     event.preventDefault();
     console.log(username, email, password, newsletter);
     try {
-      const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-        // "http://localhost:3000/user/signup",
-        {
-          username: username,
-          email: email,
-          password: password,
-          newsletter: newsletter,
-        }
-      );
-      Cookies.set("token", response.data.token, { expires: 7 });
-
+      const response = await apiClient.post(endpoint, {
+        username: username,
+        email: email,
+        password: password,
+        newsletter: newsletter,
+      });
+      handleToken(response.data.token);
       setResponseMessage({
         ...responseMessage,
         message: "Account successfully created !",
         success: true,
       });
-
-      setToken(response.data.token);
 
       setUsername("");
       setEmail("");
@@ -64,10 +58,7 @@ const Signup = ({
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (token) setVisibleSignup(false);
-    }, 2000);
-    return () => clearTimeout(timer);
+    if (token) setVisibleSignup(false);
   }, [token, setVisibleSignup]);
 
   return (
