@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 // api client
 import apiClient from "../api/client";
 const endpoint = "/offers";
+const bearerToken = "TJj57lXfmKMWuI6n";
 
 //
 const Home = ({
@@ -41,6 +43,7 @@ const Home = ({
       const response = await apiClient.get(`${endpoint}${queryString}`);
       setData(response.data);
       setIsLoading(false);
+      // console.log(response.data);
     } catch (error) {
       console.log(error.response);
     }
@@ -67,7 +70,7 @@ const Home = ({
         </div>
         <img
           src="https://www.repstatic.it/content/nazionale/img/2021/01/22/062940409-8153b63b-d426-4cca-b735-17e115109660.jpg?webp"
-          alt=""
+          alt="fonds du site"
         />
       </div>
       <main>

@@ -1,9 +1,9 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-// import Header from "./Header";
+// api client
+import apiClient from "../api/client";
+const endpoint = "/offer";
 
 const Offer = () => {
   const { id } = useParams();
@@ -14,14 +14,8 @@ const Offer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
-          // `https://lereacteur-vinted-api.herokuapp.com/offer/64b5153b528a43ef1c118aa9`
-        );
-        // const response = await axios.get(
-        //   "https://lereacteur-vinted-api.herokuapp.com/offers"
-        // );
-        console.log(response.data);
+        const response = await apiClient.get(`${endpoint}/${id}`);
+
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
