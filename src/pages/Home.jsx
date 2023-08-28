@@ -73,6 +73,7 @@ const Home = ({
             visibleLogin={visibleLogin}
             setVisibleLogin={setVisibleLogin}
             setVisibleSignup={setVisibleSignup}
+            className={"hero-button"}
           />
         </div>
         <img

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import apiClient from "../api/client";
+// import axios from "axios";
 
 // Icon library
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -58,7 +59,7 @@ const Publish = () => {
       },
     };
 
-    const postResponse = await axios.post(
+    const postResponse = await apiClient.post(
       //   "https://site--vinted-backend--25428jw7g85y.code.run/offers",
       "http://localhost:3000/offers",
       formData,

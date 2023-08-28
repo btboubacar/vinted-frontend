@@ -8,6 +8,7 @@ const SellArticleLink = ({
   visibleLogin,
   setVisibleLogin,
   setVisibleSignup,
+  className,
 }) => {
   /* Nested ternary : redirect user to publish page after having having requested "publish" without being logged in. */
   // This component is re-usable for the hero button
@@ -21,6 +22,7 @@ const SellArticleLink = ({
   ) : token ? (
     <Link to={"/publish"}>
       <button
+        className={className}
         onClick={() => {
           // setRequestPublish(true);
           setVisibleLogin(!visibleLogin);

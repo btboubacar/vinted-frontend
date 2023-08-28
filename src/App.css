@@ -201,7 +201,8 @@ textarea:focus {
   line-height: 45px;
 }
 
-.hero > div > button {
+.hero > div > button,
+.hero-button {
   border: 1px solid #2baeb7;
   border-radius: 5px;
   height: 45px;
@@ -210,7 +211,8 @@ textarea:focus {
   margin-top: 50px;
   padding: 10px;
 }
-.hero > div > button:hover {
+.hero > div > button:hover,
+.hero-button:hover {
   cursor: pointer;
 }
 
