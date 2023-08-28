@@ -15,11 +15,16 @@ import DetectEscapeKey from "./components/DetectEscapeKey";
 
 // External libraries
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-library.add(faMagnifyingGlass);
+import {
+  faMagnifyingGlass,
+  faXmark,
+  faCamera,
+} from "@fortawesome/free-solid-svg-icons";
+import Publish from "./pages/Publish";
+library.add(faMagnifyingGlass, faXmark, faCamera);
 
 function App() {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(Cookies.get("token") || null);
   const [visibleSignup, setVisibleSignup] = useState(false);
   const [visibleLogin, setVisibleLogin] = useState(false);
 
@@ -27,6 +32,9 @@ function App() {
   const [values, setValues] = useState([5, 500]);
   const [search, setSearch] = useState("");
   const [sortDirection, setSortDirection] = useState(false);
+
+  // request connexion to publish offer
+  const [requestPublish, setRequestPublish] = useState(false);
 
   // handle token
   const handleToken = (token) => {
@@ -54,6 +62,8 @@ function App() {
         setSearch={setSearch}
         sortDirection={sortDirection}
         setSortDirection={setSortDirection}
+        requestPublish={requestPublish}
+        setRequestPublish={setRequestPublish}
       />
 
       <Routes>
@@ -63,16 +73,18 @@ function App() {
             <Home
               visibleLogin={visibleLogin}
               setVisibleLogin={setVisibleLogin}
+              setVisibleSignup={setVisibleSignup}
               values={values}
-              setValues={setValues}
               search={search}
-              setSearch={setSearch}
               sortDirection={sortDirection}
-              setSortDirection={setSortDirection}
+              requestPublish={requestPublish}
+              setRequestPublish={setRequestPublish}
+              token={token}
             />
           }
         />
         <Route path="/offers/:id" element={<Offer />} />
+        <Route path="/publish" element={<Publish token={token} />} />
       </Routes>
       {visibleSignup && (
         <Signup
@@ -81,6 +93,7 @@ function App() {
           setVisibleSignup={setVisibleSignup}
           visibleLogin={visibleLogin}
           setVisibleLogin={setVisibleLogin}
+          setRequestPublish={setRequestPublish}
         />
       )}
       {visibleLogin && (
@@ -90,6 +103,7 @@ function App() {
           setVisibleLogin={setVisibleLogin}
           visibleSignup={visibleSignup}
           setVisibleSignup={setVisibleSignup}
+          setRequestPublish={setRequestPublish}
         />
       )}
       {visibleLogin || visibleSignup ? (

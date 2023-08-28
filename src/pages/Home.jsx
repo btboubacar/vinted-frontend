@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 // Components
 import OfferItemCard from "../components/OfferItemCard";
+import SellArticleLink from "../components/SellArticleLink";
 
 // api client
 import apiClient from "../api/client";
@@ -14,7 +15,11 @@ const Home = ({
   search,
   visibleLogin,
   setVisibleLogin,
+  setVisibleSignup,
   sortDirection,
+  token,
+  requestPublish,
+  setRequestPublish,
 }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -60,13 +65,15 @@ const Home = ({
       <div className="hero">
         <div>
           <p>Commencez à faire du tri dans vos placards ?</p>
-          <button
-            onClick={() => {
-              setVisibleLogin(!visibleLogin);
-            }}
-          >
-            Commencer à vendre
-          </button>
+          <SellArticleLink
+            token={token}
+            requestPublish={requestPublish}
+            setRequestPublish={setRequestPublish}
+            buttonTitle="Commencer à vendre"
+            visibleLogin={visibleLogin}
+            setVisibleLogin={setVisibleLogin}
+            setVisibleSignup={setVisibleSignup}
+          />
         </div>
         <img
           src="https://www.repstatic.it/content/nazionale/img/2021/01/22/062940409-8153b63b-d426-4cca-b735-17e115109660.jpg?webp"

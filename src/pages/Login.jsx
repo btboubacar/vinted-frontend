@@ -10,6 +10,7 @@ const Login = ({
   setVisibleLogin,
   visibleSignup,
   setVisibleSignup,
+  setRequestPublish,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,6 +58,7 @@ const Login = ({
       className="signup-container"
       onClick={() => {
         setVisibleLogin(false);
+        setRequestPublish(false);
       }}
     >
       <div
@@ -68,6 +70,7 @@ const Login = ({
         <button
           onClick={() => {
             setVisibleLogin(false);
+            setRequestPublish(false);
           }}
           className="modal-button"
         >
@@ -112,6 +115,7 @@ const Login = ({
             onClick={() => {
               setVisibleSignup(!visibleSignup);
               setVisibleLogin(false);
+              setRequestPublish(false);
             }}
           >
             Pas encore de compte ? Inscris toi !

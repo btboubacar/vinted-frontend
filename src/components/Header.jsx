@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -8,6 +8,7 @@ import logo from "../assets/img/logo.jpg";
 // Adapted from external components
 import PriceSlider from "./PriceSlider";
 import SliderSwitch from "./SliderSwitch";
+import SellArticleLink from "./SellArticleLink";
 
 const Header = ({
   token,
@@ -22,8 +23,11 @@ const Header = ({
   setSearch,
   sortDirection,
   setSortDirection,
+  requestPublish,
+  setRequestPublish,
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (visibleLogin || visibleSignup) document.body.style.overflow = "hidden";
@@ -32,7 +36,7 @@ const Header = ({
 
   return (
     <header>
-      <div className="container header-container">
+      <div className="container top-container inner-header">
         <div className="img-logo">
           <Link
             to={"/"}
@@ -82,6 +86,8 @@ const Header = ({
                 }}
                 onClick={() => {
                   handleToken(null);
+                  setRequestPublish(false);
+                  navigate("/");
                 }}
               >
                 Se deconnecter
@@ -93,6 +99,7 @@ const Header = ({
                 onClick={() => {
                   setVisibleSignup(!visibleSignup);
                   setVisibleLogin(false);
+                  setRequestPublish(false);
                 }}
               >
                 s'inscrire
@@ -102,20 +109,22 @@ const Header = ({
                 onClick={() => {
                   setVisibleLogin(!visibleLogin);
                   setVisibleSignup(false);
+                  setRequestPublish(false);
                 }}
               >
                 Se connecter
               </button>
             </div>
           )}
-
-          <button
-            onClick={() => {
-              setVisibleLogin(!visibleLogin);
-            }}
-          >
-            Vends tes articles
-          </button>
+          <SellArticleLink
+            token={token}
+            requestPublish={requestPublish}
+            setRequestPublish={setRequestPublish}
+            buttonTitle="Vends tes articles"
+            visibleLogin={visibleLogin}
+            setVisibleLogin={setVisibleLogin}
+            setVisibleSignup={setVisibleSignup}
+          />
         </nav>
       </div>
     </header>

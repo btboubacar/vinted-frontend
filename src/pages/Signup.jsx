@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // api client
 import apiClient from "../api/client";
@@ -10,6 +11,7 @@ const Signup = ({
   setVisibleSignup,
   token,
   handleToken,
+  setRequestPublish,
 }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -19,6 +21,8 @@ const Signup = ({
     message: "",
     success: false,
   });
+  const [avatar, setAvatar] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -66,6 +70,7 @@ const Signup = ({
       className="signup-container"
       onClick={() => {
         setVisibleSignup(false);
+        setRequestPublish(false);
       }}
     >
       <div
@@ -77,12 +82,32 @@ const Signup = ({
         <button
           onClick={() => {
             setVisibleSignup(false);
+            setRequestPublish(false);
           }}
           className="modal-button"
         >
           X
         </button>
         <h1>S'inscrire</h1>
+        {!avatar ? (
+          <label className="user-avatar">
+            <input
+              type="file"
+              name="avatar"
+              id="avatar"
+              onChange={(event) => {
+                setAvatar(event.target.files[0]);
+                setAvatarUrl(URL.createObjectURL(event.target.files[0]));
+              }}
+            />
+            <p>Profile image</p>
+            <FontAwesomeIcon icon="camera" />
+          </label>
+        ) : (
+          <div className="user-avatar">
+            <img src={avatarUrl} alt="profile" />
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -155,6 +180,7 @@ const Signup = ({
             onClick={() => {
               setVisibleLogin(!visibleLogin);
               setVisibleSignup(false);
+              setRequestPublish(false);
             }}
           >
             Tu as déjà un compte ? connecte-toi !
