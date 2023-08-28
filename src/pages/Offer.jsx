@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 
 // api client
 import apiClient from "../api/client";
-const endpoint = "/offer";
+//const endpoint = "/offer"; // LeReacteur route => no "s"
+const endpoint = "/offers";
 
 const Offer = () => {
   const { id } = useParams();
@@ -45,7 +46,11 @@ const Offer = () => {
 
                 return (
                   <p className="offer-text" key={objKey}>
-                    <span>{objKey}</span> <span>{detail[objKey[0]]}</span>{" "}
+                    {detail[objKey[0]] !== "undefined" && detail[objKey[0]] && (
+                      <>
+                        <span>{objKey}</span> <span>{detail[objKey[0]]}</span>{" "}
+                      </>
+                    )}
                   </p>
                 );
               })}

@@ -12,6 +12,12 @@ body {
   max-width: 1213px;
 }
 
+progress {
+  position: absolute;
+  top: 200px;
+  left: calc((100% / 2));
+}
+
 /* ----------------- */
 /* ----- HEADER ---- */
 /* ----------------- */

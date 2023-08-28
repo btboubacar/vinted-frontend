@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+// Components
+import OfferItemCard from "../components/OfferItemCard";
 
 // api client
 import apiClient from "../api/client";
 const endpoint = "/offers";
-const bearerToken = "TJj57lXfmKMWuI6n";
 
 //
 const Home = ({
   values,
-  title,
+  search,
   visibleLogin,
   setVisibleLogin,
   sortDirection,
@@ -19,7 +20,7 @@ const Home = ({
   const [isLoading, setIsLoading] = useState(true);
 
   let queryString = "";
-  if (title) queryString += `?title=${title}`;
+  if (search) queryString += `?title=${search}`;
   if (values) {
     if (!queryString) queryString += `?priceMin=${values[0]}`;
     else queryString += `&priceMin=${values[0]}`;
@@ -43,7 +44,6 @@ const Home = ({
       const response = await apiClient.get(`${endpoint}${queryString}`);
       setData(response.data);
       setIsLoading(false);
-      // console.log(response.data);
     } catch (error) {
       console.log(error.response);
     }
@@ -51,10 +51,10 @@ const Home = ({
 
   useEffect(() => {
     fetchData();
-  }, [title, values, sortDirection]);
+  }, [search, values, sortDirection]);
 
   return isLoading ? (
-    "Loading ..."
+    <progress value={null} />
   ) : (
     <>
       <div className="hero">
@@ -75,7 +75,7 @@ const Home = ({
       </div>
       <main>
         <div className="main-container container">
-          {data.offers.map((offer, index) => {
+          {data.offers.map((offer) => {
             return (
               <div key={offer._id} className="card-offer">
                 <p
@@ -86,22 +86,7 @@ const Home = ({
                   {offer.owner.account.username}
                 </p>
                 <Link to={`/offers/${offer._id}`}>
-                  <div>
-                    <img
-                      src={offer.product_image.secure_url}
-                      alt={offer.product_name}
-                    />
-                    <p>{offer.product_price} €</p>
-                    {offer.product_details.map((detail, index) => {
-                      if (detail.TAILLE || detail.ÉTAT) {
-                        return (
-                          <p key={index}>{detail.TAILLE || detail.ÉTAT}</p>
-                        );
-                      } else {
-                        return null;
-                      }
-                    })}
-                  </div>
+                  <OfferItemCard offer={offer} />
                 </Link>
               </div>
             );

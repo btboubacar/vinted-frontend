@@ -18,8 +18,8 @@ const Header = ({
   setVisibleLogin,
   values,
   setValues,
-  title,
-  setTitle,
+  search,
+  setSearch,
   sortDirection,
   setSortDirection,
 }) => {
@@ -28,7 +28,7 @@ const Header = ({
   useEffect(() => {
     if (visibleLogin || visibleSignup) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "scroll";
-  }, [visibleLogin, visibleSignup, title]);
+  }, [visibleLogin, visibleSignup, search]);
 
   return (
     <header>
@@ -52,7 +52,7 @@ const Header = ({
             id="search"
             placeholder="Recherche des articles"
             onChange={(event) => {
-              setTitle(event.target.value);
+              setSearch(event.target.value);
             }}
           />
           {location.pathname === "/" && (

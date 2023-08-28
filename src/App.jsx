@@ -25,7 +25,7 @@ function App() {
 
   // sort
   const [values, setValues] = useState([5, 500]);
-  const [title, setTitle] = useState("");
+  const [search, setSearch] = useState("");
   const [sortDirection, setSortDirection] = useState(false);
 
   // handle token
@@ -50,8 +50,8 @@ function App() {
         setVisibleLogin={setVisibleLogin}
         values={values}
         setValues={setValues}
-        title={title}
-        setTitle={setTitle}
+        search={search}
+        setSearch={setSearch}
         sortDirection={sortDirection}
         setSortDirection={setSortDirection}
       />
@@ -65,8 +65,8 @@ function App() {
               setVisibleLogin={setVisibleLogin}
               values={values}
               setValues={setValues}
-              title={title}
-              setTitle={setTitle}
+              search={search}
+              setSearch={setSearch}
               sortDirection={sortDirection}
               setSortDirection={setSortDirection}
             />
