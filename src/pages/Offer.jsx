@@ -28,7 +28,7 @@ const Offer = () => {
   }, [id]);
 
   return isLoading ? (
-    "Loading"
+    <progress value={null} />
   ) : (
     // return (
     <>
