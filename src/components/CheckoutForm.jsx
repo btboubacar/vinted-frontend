@@ -4,7 +4,7 @@ import OrderDetails from "./OrderDetails";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const backendURL = "https://site--vinted-backend--25428jw7g85y.code.run";
+const backendURL = "https://site--vinted-backenæd--25428jw7g85y.code.run";
 const endpoint = "/payment";
 
 const CheckoutForm = ({ state }) => {
