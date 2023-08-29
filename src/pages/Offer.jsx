@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 // api client
@@ -7,6 +8,7 @@ import apiClient from "../api/client";
 const endpoint = "/offers";
 
 const Offer = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [data, setData] = useState();
@@ -37,6 +39,16 @@ const Offer = () => {
         <div className="inner-offer-container">
           <div className="offer-image">
             <img src={data.product_image.secure_url} alt={data.product_name} />
+
+            {data.product_pictures &&
+              data.product_pictures.length > 0 &&
+              data.product_pictures.map((picture, index) => (
+                <img
+                  key={index}
+                  src={picture[0].secure_url}
+                  alt={data.product_name}
+                />
+              ))}
           </div>
           <div className="offer-details">
             <div className="offer-details-product">
@@ -74,7 +86,19 @@ const Offer = () => {
               </div>
             </div>
 
-            <button>Acheter</button>
+            <button
+              onClick={() => {
+                navigate("/payment", {
+                  state: {
+                    price: data.product_price,
+                    description: data.product_description || data.product_name,
+                    name: data.owner.account.username,
+                  },
+                });
+              }}
+            >
+              Acheter
+            </button>
           </div>
         </div>
       </article>

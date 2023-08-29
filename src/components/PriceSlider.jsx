@@ -3,7 +3,7 @@ import { Range, getTrackBackground } from "react-range";
 
 const STEP = 5;
 const MIN = 0;
-const MAX = 500;
+const MAX = 1000;
 
 // Copy of TwoThumbs with `draggableTrack` prop added
 const PriceSlider = ({ rtl, values, setValues }) => {
@@ -76,7 +76,7 @@ const PriceSlider = ({ rtl, values, setValues }) => {
               alignItems: "center",
               boxShadow: "0px 2px 6px #AAA",
               marginTop: "-5px",
-              fontSize: "12px",
+              fontSize: "10px",
             }}
           >
             <div

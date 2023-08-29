@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // api client
@@ -13,6 +14,9 @@ const Signup = ({
   handleToken,
   setRequestPublish,
 }) => {
+  // navigation
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,6 +70,8 @@ const Signup = ({
       setEmail("");
       setPassword("");
       setNewsletter(false);
+
+      navigate("/");
     } catch (error) {
       if (
         error.response.status === 409 ||
@@ -104,6 +110,7 @@ const Signup = ({
           onClick={() => {
             setVisibleSignup(false);
             setRequestPublish(false);
+            navigate("/");
           }}
           className="modal-button"
         >

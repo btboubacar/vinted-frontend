@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import imageHero from "../assets/img/hero.jpg";
 
 // Components
 import OfferItemCard from "../components/OfferItemCard";
@@ -77,7 +78,8 @@ const Home = ({
           />
         </div>
         <img
-          src="https://www.repstatic.it/content/nazionale/img/2021/01/22/062940409-8153b63b-d426-4cca-b735-17e115109660.jpg?webp"
+          // src="https://www.repstatic.it/content/nazionale/img/2021/01/22/062940409-8153b63b-d426-4cca-b735-17e115109660.jpg?webp"
+          src={imageHero}
           alt="fonds du site"
         />
       </div>

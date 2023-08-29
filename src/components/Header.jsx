@@ -43,6 +43,7 @@ const Header = ({
             onClick={() => {
               setVisibleSignup(false);
               setVisibleLogin(false);
+              setRequestPublish(false);
             }}
           >
             <img src={logo} alt="Logo vinted" />

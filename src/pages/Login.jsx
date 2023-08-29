@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // api client
 import apiClient from "../api/client";
@@ -12,6 +13,7 @@ const Login = ({
   setVisibleSignup,
   setRequestPublish,
 }) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [responseMessage, setResponseMessage] = useState({
@@ -32,6 +34,8 @@ const Login = ({
 
       setEmail("");
       setPassword("");
+
+      navigate("/");
     } catch (error) {
       if (
         error.response.status === 400 ||
@@ -71,6 +75,7 @@ const Login = ({
           onClick={() => {
             setVisibleLogin(false);
             setRequestPublish(false);
+            navigate("/");
           }}
           className="modal-button"
         >

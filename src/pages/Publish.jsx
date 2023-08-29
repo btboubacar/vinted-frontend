@@ -1,13 +1,17 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import apiClient from "../api/client";
 // import axios from "axios";
+import { useDropzone } from "react-dropzone";
+import React, { useCallback } from "react";
 
 // Icon library
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Publish = () => {
+const endpoint = "/offers";
+// const endpoint = "/offer/publish"; // backend react
+
+const Publish = ({ setVisibleLogin, setRequestPublish, token }) => {
   const [picture, setPicture] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -20,25 +24,39 @@ const Publish = () => {
   const [pictureUrl, setPictureUrl] = useState([]);
   //   const [exchange, setExchange] = useState(false);
 
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+    setPictureUrl([
+      ...pictureUrl,
+      acceptedFiles.map((file) => URL.createObjectURL(file)),
+    ]);
+
+    setPicture([...picture, acceptedFiles.map((file) => file)]);
+  });
+
+  // Dropzone files
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+  });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(
-      picture,
-      title,
-      description,
-      brand,
-      size,
-      color,
-      condition,
-      city,
-      price
-    );
+    // console.log(
+    //   picture,
+    //   title,
+    //   description,
+    //   brand,
+    //   size,
+    //   color,
+    //   condition,
+    //   city,
+    //   price
+    // );
     // const userToken = "qLrwsqGOCeJ5fZ38"; // db
     //const userToken = "5-kJ2errazCTXvj3"; // local db
-    const userToken = Cookies.get("token");
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -49,24 +67,24 @@ const Publish = () => {
     formData.append("color", color);
     formData.append("city", city);
     for (let i = 0; i < picture.length; i++) {
-      formData.append("picture", picture[i]);
+      formData.append("picture", picture[i][0]);
     }
 
     let config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
     const postResponse = await apiClient.post(
       //   "https://site--vinted-backend--25428jw7g85y.code.run/offers",
-      "http://localhost:3000/offers",
+      endpoint,
       formData,
       config
     );
 
-    console.log(postResponse);
+    // console.log(postResponse.data);
 
     // reset inputs
     setPicture([]);
@@ -80,13 +98,24 @@ const Publish = () => {
     setColor("");
     setCity("");
 
-    // redirect to home
-    navigate("/");
+    // redirect to offer page
+    navigate(`/offers/${postResponse.data._id}`);
 
     ////
   };
+  useEffect(() => {
+    if (!token) {
+      setVisibleLogin(true);
+      setRequestPublish(true);
+    } else {
+      setRequestPublish(false);
+      setVisibleLogin(false);
+    }
+  }, [token, setVisibleLogin, setRequestPublish]);
 
-  return (
+  return !token ? (
+    <Navigate to="/"></Navigate>
+  ) : (
     <div className="publish-body">
       <section className="top-container ">
         <div className="publish-container">
@@ -121,8 +150,25 @@ const Publish = () => {
                   })}
                 </div>
               )}
-              <label htmlFor="file" className="add-photo">
-                <input
+              <label
+                htmlFor="file"
+                className={`${pictureUrl.length > 0 ? `imgBloc` : `add-photo`}`}
+              >
+                {/* <label htmlFor="file" className="add-photo"> */}
+                <div
+                  {...getRootProps({
+                    className: `${
+                      pictureUrl.length > 0 ? `add-photo` : `dropzone add-photo`
+                    }`,
+                  })}
+                >
+                  <input {...getInputProps()} />
+                  {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
+                  <p>
+                    <span>+</span> <span>Glisser ou ajouter une image</span>
+                  </p>
+                </div>
+                {/* <input
                   type="file"
                   name="file"
                   id="file"
@@ -134,13 +180,19 @@ const Publish = () => {
 
                     setPicture([...picture, event.target.files[0]]);
                   }}
-                />
-                <span>+</span> <span>Ajouter une photo</span>
+                /> */}
+                {/* <span>+</span> <span>Glisser ou Ajouter une image</span> */}
               </label>
             </div>
           </div>
           <div className="bloc2">
             <div className="inner-bloc inner-bloc2-1">
+              {/* <input
+                type="file"
+                onChange={(event) => {
+                  console.log(event.target.files);
+                }}
+              /> */}
               <h2>Titre</h2>
               <input
                 type="text"

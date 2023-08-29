@@ -15,16 +15,15 @@ const SellArticleLink = ({
 
   return token && requestPublish ? (
     <>
-      <Navigate to="/publish" />
       <button>{buttonTitle}</button>
-      {setRequestPublish(false)}
+      <Navigate to="/publish"></Navigate>
     </>
   ) : token ? (
     <Link to={"/publish"}>
       <button
         className={className}
         onClick={() => {
-          // setRequestPublish(true);
+          setRequestPublish(true);
           setVisibleLogin(!visibleLogin);
           // setVisibleSignup(false);
         }}

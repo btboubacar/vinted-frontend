@@ -264,6 +264,15 @@ textarea:focus {
   margin-top: 5px;
 }
 
+.carousel {
+  height: 100%;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* overflow-x: scroll; */
+}
+
 .main-container {
   margin: 20px auto;
   display: flex;
@@ -277,7 +286,7 @@ textarea:focus {
 
 .offer-container {
   background-color: #ebedee;
-  height: 400vh;
+  height: 100vh;
 }
 
 .inner-offer-container {
@@ -291,11 +300,17 @@ textarea:focus {
 .inner-offer-container .offer-image {
   height: 80vh;
   width: calc((100% - 200px) / 2);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: scroll hidden;
+  gap: 20px;
 }
 
-.inner-offer-container .offer-image > img {
+.inner-offer-container .offer-image img {
+  flex-shrink: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .inner-offer-container .offer-details {
@@ -640,11 +655,15 @@ input[type="file"] {
   justify-content: flex-start;
   align-items: center;
   gap: 24px;
+  /* border: solid red 1px; */
+  flex: 1;
 }
 
 .add-photo {
-  width: 200px;
-  height: 45px;
+  /* width: 200px; */
+  width: 100%;
+  /* height: 45px; */
+  height: 100%;
   border: solid #0ab1ba 1px;
   border-radius: 5px;
   text-align: center;
@@ -657,18 +676,42 @@ input[type="file"] {
   gap: 10px;
   justify-content: center;
 }
-.add-photo > span:nth-child(1) {
-  font-size: 40px;
+.add-photo:hover {
+  cursor: pointer;
+  background-color: #cfeded;
 }
 
+.add-photo > p {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/*  +  */
+.add-photo > p > span:nth-child(1) {
+  font-size: 40px;
+  color: white;
+  border: #0ab0ba solid 1px;
+  border-radius: 5px;
+  padding: 0 5px;
+  background-color: #0ab0ba;
+}
+/*  text after +  */
+.add-photo > p > span:nth-child(2) {
+  font-size: 25px;
+}
+
+.add-photo {
+  flex: 1;
+}
 .imgBloc {
   display: flex;
   gap: 24px;
 }
 
 .imgBloc > div {
-  width: 200px;
-  height: 202px;
+  width: 190px;
+  height: 190px;
   position: relative;
 }
 .imgBloc > div img {
@@ -815,4 +858,79 @@ textarea {
 .submit-offer:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 255, 0.524);
+}
+
+/* ---- Payment */
+.payment-body {
+  background-color: #ebedee;
+  margin-top: -3 0px;
+  height: 100vh;
+  padding-top: 36px;
+}
+.payment-container {
+  margin: 0 auto;
+  width: 600px;
+  background-color: white;
+  padding: 24px;
+}
+
+.payment-container h3 {
+  font-size: 16px;
+  line-height: 18px;
+  color: gray;
+  margin-bottom: 50px;
+}
+
+.payment-container > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  gap: 15px;
+  padding-bottom: 40px;
+  /* border-bottom: solid gray 1px; */
+}
+
+.payment-container > div p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-container > div p:nth-of-type(3) {
+  padding-bottom: 50px;
+  border-bottom: solid grey 1px;
+}
+
+/* total */
+.payment-container > p:nth-of-type(1) {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+/* --text after total */
+.payment-container > p:nth-of-type(2) {
+  font-size: 16px;
+  text-align: justify;
+  color: grey;
+  line-height: 20px;
+}
+
+.payment-form .StripeElement {
+  padding-top: 20px;
+  border: solid grey 1px;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.payment-form button {
+  width: 100%;
+  height: 44px;
+  background-color: #00c06d;
+  color: white;
+}
+
+.payment-form button:hover {
+  cursor: pointer;
+  background-color: #05824aec;
 }
