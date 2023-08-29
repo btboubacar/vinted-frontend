@@ -3,8 +3,9 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import OrderDetails from "./OrderDetails";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import apiClient from "../api/client";
 
-const backendURL = "https://site--vinted-backenæd--25428jw7g85y.code.run";
+// const backendURL = "https://site--vinted-backend--25428jw7g85y.code.run";
 const endpoint = "/payment";
 
 const CheckoutForm = ({ state }) => {
@@ -39,7 +40,7 @@ const CheckoutForm = ({ state }) => {
 
       const stripeToken = stripeResponse.token.id;
 
-      const response = await axios.post(backendURL + endpoint, {
+      const response = await apiClient.post(endpoint, {
         stripeToken: stripeToken,
         price: totalPrice.toFixed(2),
         description: state.description,
