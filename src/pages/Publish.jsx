@@ -44,19 +44,6 @@ const Publish = ({ setVisibleLogin, setRequestPublish, token }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // console.log(
-    //   picture,
-    //   title,
-    //   description,
-    //   brand,
-    //   size,
-    //   color,
-    //   condition,
-    //   city,
-    //   price
-    // );
-    // const userToken = "qLrwsqGOCeJ5fZ38"; // db
-    //const userToken = "5-kJ2errazCTXvj3"; // local db
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);

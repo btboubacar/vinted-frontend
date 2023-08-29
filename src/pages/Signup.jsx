@@ -32,15 +32,6 @@ const Signup = ({
     event.preventDefault();
     console.log(username, email, password, newsletter);
     try {
-      // Previous version => no user image
-      // const response = await apiClient.post(endpoint, {
-      //   username: username,
-      //   email: email,
-      //   password: password,
-      //   newsletter: newsletter,
-      //   avatar: avatar,
-      // });
-
       const formData = new FormData();
       formData.append("username", username);
       formData.append("email", email);
@@ -53,12 +44,7 @@ const Signup = ({
         },
       };
 
-      const response = await apiClient.post(
-        //   "https://site--vinted-backend--25428jw7g85y.code.run/offers",
-        endpoint,
-        formData,
-        config
-      );
+      const response = await apiClient.post(endpoint, formData, config);
       handleToken(response.data.token);
       setResponseMessage({
         ...responseMessage,
