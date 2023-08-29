@@ -23,8 +23,6 @@ const Login = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log(email, password);
     try {
       const response = await apiClient.post(endpoint, {
         email: email,
