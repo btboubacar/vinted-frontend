@@ -39,11 +39,19 @@ const CheckoutForm = ({ state }) => {
 
       const stripeToken = stripeResponse.token.id;
 
-      const response = await axios.post(backendURL + endpoint, {
-        stripeToken: stripeToken,
-        price: totalPrice.toFixed(2),
-        description: state.description,
-      });
+      const response = await axios.post(
+        backendURL + endpoint,
+        {
+          stripeToken: stripeToken,
+          price: totalPrice.toFixed(2),
+          description: state.description,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": backendURL,
+          },
+        }
+      );
 
       if (response.data.status === "succeeded") {
         setCompleted(true);

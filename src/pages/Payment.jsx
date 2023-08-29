@@ -5,7 +5,6 @@ import { Navigate, useLocation } from "react-router-dom";
 
 const Payment = ({ token }) => {
   const location = useLocation();
-  console.log(location.state.pathname);
   const stripePromise = loadStripe(
     "pk_test_51NkTCwHzayk09noy9q58rI6TAxRYxL9v1lSmGsAbHucU6XxmzaFoK6w3fxetZzILUcgWh9uqQa1ZY6VASyk3jMA300OMVYffhw"
   );

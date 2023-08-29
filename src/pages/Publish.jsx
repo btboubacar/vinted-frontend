@@ -141,7 +141,6 @@ const Publish = ({ setVisibleLogin, setRequestPublish, token }) => {
                 htmlFor="file"
                 className={`${pictureUrl.length > 0 ? `imgBloc` : `add-photo`}`}
               >
-                {/* <label htmlFor="file" className="add-photo"> */}
                 <div
                   {...getRootProps({
                     className: `${
@@ -150,36 +149,15 @@ const Publish = ({ setVisibleLogin, setRequestPublish, token }) => {
                   })}
                 >
                   <input {...getInputProps()} />
-                  {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
                   <p>
                     <span>+</span> <span>Glisser ou ajouter une image</span>
                   </p>
                 </div>
-                {/* <input
-                  type="file"
-                  name="file"
-                  id="file"
-                  onChange={(event) => {
-                    setPictureUrl([
-                      ...pictureUrl,
-                      URL.createObjectURL(event.target.files[0]),
-                    ]);
-
-                    setPicture([...picture, event.target.files[0]]);
-                  }}
-                /> */}
-                {/* <span>+</span> <span>Glisser ou Ajouter une image</span> */}
               </label>
             </div>
           </div>
           <div className="bloc2">
             <div className="inner-bloc inner-bloc2-1">
-              {/* <input
-                type="file"
-                onChange={(event) => {
-                  console.log(event.target.files);
-                }}
-              /> */}
               <h2>Titre</h2>
               <input
                 type="text"
