@@ -30,7 +30,6 @@ const Signup = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(username, email, password, newsletter);
     try {
       const formData = new FormData();
       formData.append("username", username);

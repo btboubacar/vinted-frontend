@@ -84,7 +84,7 @@ function App() {
             />
           }
         />
-        <Route path="/offers/:id" element={<Offer />} />
+        <Route path="/offers/:id" element={<Offer token={token} />} />
         {/* --- Redefinition of /login route if user types /login in the url */}
         <Route
           path="/login"

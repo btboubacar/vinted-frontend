@@ -2,10 +2,8 @@ import { useState } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import OrderDetails from "./OrderDetails";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import apiClient from "../api/client";
 
-// const backendURL = "https://site--vinted-backend--25428jw7g85y.code.run";
 const endpoint = "/payment";
 
 const CheckoutForm = ({ state }) => {

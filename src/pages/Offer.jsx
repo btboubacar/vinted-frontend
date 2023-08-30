@@ -7,7 +7,7 @@ import apiClient from "../api/client";
 //const endpoint = "/offer"; // LeReacteur route => no "s"
 const endpoint = "/offers";
 
-const Offer = () => {
+const Offer = ({ token }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -89,11 +89,14 @@ const Offer = () => {
             <button
               onClick={() => {
                 navigate("/payment", {
-                  state: {
-                    price: data.product_price,
-                    description: data.product_description || data.product_name,
-                    name: data.owner.account.username,
-                  },
+                  state: token
+                    ? {
+                        price: data.product_price,
+                        description:
+                          data.product_description || data.product_name,
+                        name: data.owner.account.username,
+                      }
+                    : null,
                 });
               }}
             >
