@@ -5,7 +5,7 @@ Vinted app is a simplified version of vinted website. the backend API for the ap
 ## Screens captures
 
 <div style="display: flex; justify-content: space-between;">
-<img src="src/assets/img/vinted_images.gif" alt="Función 2" style="max-width: 400px; height: 400px; border-radius: 10px">
+<img src="src/assets/img/vinted_images.gif" alt="Función 2" style="max-width: 800px; height: 600px; border-radius: 10px">
 </div>
 
 ## Installation
