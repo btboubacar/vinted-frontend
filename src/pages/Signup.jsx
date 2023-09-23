@@ -11,7 +11,7 @@ const Signup = ({
   setVisibleLogin,
   setVisibleSignup,
   token,
-  handleToken,
+  handleToken,æ
   setRequestPublish,
 }) => {
   // navigation
