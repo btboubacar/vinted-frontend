@@ -30,6 +30,7 @@ const CheckoutForm = ({ state }) => {
 
       // retrieve user bank details
       const cardElement = elements.getElement(CardElement);
+      console.log(cardElement);
 
       // creation of token by Stripe API to be sent to backend
       const stripeResponse = await stripe.createToken(cardElement, {
